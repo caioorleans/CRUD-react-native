@@ -5,12 +5,14 @@ import {Button, Icon} from 'react-native-elements'
 
 import UserList from './views/UserList'
 import UserForm from './views/UserForm'
+import { UsersProvider } from "./context/UsersContext";
 
 const Stack = createNativeStackNavigator()
 
 export default props => {
     return(
-        <NavigationContainer>
+        <UsersProvider>
+            <NavigationContainer>
             <Stack.Navigator
                 initialRouteName='UserList'
                 screenOptions={screenOptions}>
@@ -37,6 +39,8 @@ export default props => {
                     }}/>
             </Stack.Navigator>
         </NavigationContainer>
+        </UsersProvider>
+        
     )
 }
 
