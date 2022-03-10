@@ -5,14 +5,17 @@ import UsersContext from "./../context/UsersContext";
 
 export default props => {
 
-    const {state} = useContext(UsersContext)
+    const {state, dispatch} = useContext(UsersContext)
 
     function confirmUserDeletion(user){
         Alert.alert("Excluir Usuário", "Deseja excluir o usuário?", [
             {
                 text:'sim',
                 onPress(){
-                    console.warn('delete' + user.id)
+                    dispatch({
+                        type: 'deleteUser',
+                        payload: user,
+                    })
                 }
             },
             {
@@ -26,6 +29,7 @@ export default props => {
             <ListItem
                 key={user.id}
                 onPress={() => props.navigation.navigate('UserForm', user)}
+                bottomDivider
             >
                 <Avatar source={{uri: user.avatarUrl}}/>
                 <ListItem.Content>

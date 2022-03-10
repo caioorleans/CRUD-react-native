@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {Text, View, TextInput, StyleSheet, Button} from 'react-native'
 import { LeftAvatar } from "react-native-elements";
+import UsersContext from '../context/UsersContext'
 
 export default ({route, navigation}) => {
 
     const [user, setUser] = useState(route.params ? route.params : {})
+    const {dispatch} = useContext(UsersContext)
 
     return(
         <View style={style.form}>
@@ -35,6 +37,10 @@ export default ({route, navigation}) => {
             <Button
                 title= "Salvar"
                 onPress={()=>{
+                    dispatch({
+                        type: user.id ? 'updateUser' : 'createUser',
+                        payload: user,
+                    })
                     navigation.goBack()
                 }}
             />
